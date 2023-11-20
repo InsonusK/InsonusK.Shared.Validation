@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <PackageId>InsonusK.Shared.Validation</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>InsonusK</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/InsonusK/InsonusK.Shared.Validation</PackageProjectUrl>
+    <Description>Addition Validation attributes</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+  </PropertyGroup>
+</Project>
