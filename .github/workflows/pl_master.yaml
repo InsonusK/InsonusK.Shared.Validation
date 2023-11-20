@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 env:
-  project_path: 'src/InsonusK.Xunit.ExpectationsTest/InsonusK.Xunit.ExpectationsTest.csproj'
+  project_path: 'src/InsonusK.Shared.Validation/InsonusK.Shared.Validation.csproj'
   
 jobs:
   check_changing:
