@@ -1,0 +1,68 @@
+name: Check pull request to master
+
+on:
+  pull_request:
+    branches: [ master ]
+
+env:
+  project_path: 'src/InsonusK.Xunit.ExpectationsTest/InsonusK.Xunit.ExpectationsTest.csproj'
+  
+jobs:
+  check_changing:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v3
+    - name: Check does code or test changed
+      id: changed_obj
+      uses: ./.github/workflows/actions/check_changing
+    
+    outputs:
+      code_changed: ${{ steps.changed_obj.outputs.is-code-changed }}  
+      test_changed: ${{ steps.changed_obj.outputs.is-test-changed }}  
+      
+  testing:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/dotnet/sdk:7.0
+    needs: check_changing
+    if: ${{ needs.check_changing.outputs.code_changed == 'true' || needs.check_changing.outputs.test_changed == 'true' }}
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Run project unit tests
+        uses: ./.github/workflows/actions/test_project
+
+  version_check:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/dotnet/sdk:7.0
+    needs: check_changing
+    if: ${{ needs.check_changing.outputs.code_changed == 'true' }}
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: "Get current version of package"
+        uses: kzrnm/get-net-sdk-project-versions-action@v1
+        id: project_version
+        with:
+          proj-path: ${{ env.project_path }}
+      - name: "Get last release tag"
+        id: last_release_version
+        uses: InsonusK/get-latest-release@v1.1.0
+        with:
+          myToken: ${{ secrets.GITHUB_TOKEN }}
+          exclude_types: "prerelease|draft"
+          view_top: 10
+      - name: "Compare version"
+        id: compare_version
+        uses: fabriziocacicia/semver-compare-action@v0.1.0
+        with:
+          first: ${{ steps.project_version.outputs.version }}  
+          second: ${{ steps.last_release_version.outputs.tag_name }}  
+      - name: "Check compare result"
+        run: |
+          if [[ "${{ steps.compare_version.outputs.result }}" == "false" ]];
+          then
+            echo "New version must be higher than last release"
+            exit 4
+          fi

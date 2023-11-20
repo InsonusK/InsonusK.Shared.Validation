@@ -1,0 +1,34 @@
+name: 'Check changing'
+
+description: 'Check has been code or test changed'
+
+inputs:
+  code-dir: 
+    description: 'path to directory with source code'
+    required: true
+    default: 'src/**'
+  test-dir:  
+    description: 'path to directory with unit tests'
+    required: true
+    default: 'test/**'
+
+outputs:
+  is-code-changed:
+    description: "Flag is code has been changed"
+    value: ${{ steps.changed_obj.outputs.code }}
+  is-test-changed:
+      description: "Flag is test has been changed"
+      value: ${{ steps.changed_obj.outputs.test }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check does code or test changed
+      uses: dorny/paths-filter@v2
+      id: changed_obj
+      with:
+        filters: |
+          code:
+            - ${{ inputs.code-dir }}
+          test:
+            - ${{ inputs.test-dir }}
