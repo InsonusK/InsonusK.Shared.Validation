@@ -2,6 +2,9 @@
 
 namespace InsonusK.Shared.Validation;
 
+/// <summary>
+/// Validate field is DateTime in UTC kind
+/// </summary>
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
 public class UTCKindAttribute : ValidationAttribute
 {
