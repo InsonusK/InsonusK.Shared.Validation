@@ -1,0 +1,11 @@
+{
+  "dotnet.preferVisualStudioCodeFileSystemWatcher": true,
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "build/**": true,
+    "node_modules/**": true
+    // Add other patterns or directories to exclude
+  },
+  "files.watchers.maximum": 1000 // or a higher value if needed
+}
