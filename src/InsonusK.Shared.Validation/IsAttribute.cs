@@ -4,27 +4,17 @@ using Ardalis.GuardClauses;
 
 namespace InsonusK.Shared.Validation;
 
-public enum CompareType
-{
-  GE,
-  GT,
-  LE,
-  LT,
-  EQ,
-  NE
-}
-
 /// <summary>
 /// Validate field is compare to
 /// </summary>
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = true)]
-public class CompareAttribute<T> : ValidationAttribute where T : IComparable
+public class IsAttribute<T> : ValidationAttribute where T : IComparable
 {
   private readonly CompareType compareType;
   private readonly T compareValue;
 
 
-  public CompareAttribute(CompareType compareType, [NotNull] T compareValue)
+  public IsAttribute(CompareType compareType, [NotNull] T compareValue)
   {
     Guard.Against.Null(compareValue);
     this.compareType = compareType;
