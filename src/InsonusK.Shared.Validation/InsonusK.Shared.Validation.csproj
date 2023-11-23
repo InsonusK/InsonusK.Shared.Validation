@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
 
     <PackageId>InsonusK.Shared.Validation</PackageId>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <Authors>InsonusK</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/InsonusK/InsonusK.Shared.Validation</PackageProjectUrl>

@@ -5,7 +5,7 @@ using InsonusK.Xunit.ExpectationsTest;
 using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
 
-public class CompareToAttribute_Test : ExpectationsTestBase
+public class IsAttribute_Test : ExpectationsTestBase
 {
   public class TestClass : IComparable
   {
@@ -23,7 +23,7 @@ public class CompareToAttribute_Test : ExpectationsTestBase
     }
   }
 
-  public CompareToAttribute_Test(ITestOutputHelper output, LogLevel logLevel = LogLevel.Debug) : base(output, logLevel)
+  public IsAttribute_Test(ITestOutputHelper output, LogLevel logLevel = LogLevel.Debug) : base(output, logLevel)
   {
 
   }
@@ -49,7 +49,7 @@ public class CompareToAttribute_Test : ExpectationsTestBase
     #region Assert
     Logger.LogDebug("Test ASSERT");
 
-    Assert.Throws<ArgumentNullException>(() => new CompareAttribute<TestClass>(CompareType.EQ, null));
+    Assert.Throws<ArgumentNullException>(() => new IsAttribute<TestClass>(CompareType.EQ, null));
 
     #endregion
   }
@@ -69,7 +69,7 @@ public class CompareToAttribute_Test : ExpectationsTestBase
     #region Array
     Logger.LogDebug("Test ARRAY");
 
-    var validation_atr = new CompareAttribute<TestClass>(compareType, new TestClass(10));
+    var validation_atr = new IsAttribute<TestClass>(compareType, new TestClass(10));
     var validated_obj = new TestClass(value);
     #endregion
 
@@ -105,7 +105,7 @@ public class CompareToAttribute_Test : ExpectationsTestBase
     #region Array
     Logger.LogDebug("Test ARRAY");
 
-    var validation_atr = new CompareAttribute<TestClass>(compareType, new TestClass(10));
+    var validation_atr = new IsAttribute<TestClass>(compareType, new TestClass(10));
     var validated_obj = new TestClass(value);
     #endregion
 
